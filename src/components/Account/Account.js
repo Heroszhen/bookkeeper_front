@@ -1,7 +1,7 @@
 import './Account.css';
 import React, { useState, useEffect, useRef  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchGetAccountsByType } from '../../store/accounts.slice';
+import { fetchGetAccountsByType, fetchEditAccount } from '../../store/accounts.slice';
 import { fetchGet, clone } from '../../services/UtilService';
 import ReactPaginate from 'react-paginate';
 import AccountModel from '../../models/AccountModel' ;
@@ -32,6 +32,7 @@ export default function Account(props){
         onSubmit: async (values) => {
             if(Object.keys(formik.errors).length === 0){
                 console.log(values)
+                dispatch(fetchEditAccount(values, dispatch));
             }
         },
         validate:validate
@@ -77,11 +78,11 @@ export default function Account(props){
         let model = new AccountModel();
         model.type = type;
         if(index === null){
-            //model.mode = allmodes[0];
+            model.mode = allmodes[0];
         }else{
             let key = pageNumber * itemsPerPage + index;
             Object.assign(model, allaccounts[key]);
-        }console.log(model)
+        }
         formik.setValues(model);
         btnModalRef.current.click();
     }
@@ -111,7 +112,7 @@ export default function Account(props){
         }else{
             tab = tab.filter(elm => elm._id !== allusers[key]['_id'])
         }
-        formik.setFieldValue("authors", tab);console.log(formik)
+        formik.setFieldValue("authors", tab);
     }
 
     return (
@@ -239,10 +240,9 @@ export default function Account(props){
                                             <div className='alert alert-danger mt-1'>{formik.errors.amount}</div>
                                         }
                                     </div>
-                                    <div className='col-md-6 mb-2'>{console.log(formik.values, allmodes)}
+                                    <div className='col-md-6 mb-2'>
                                         <label htmlFor="mode" className="form-label">Mode de paiement *</label>
-                                        <select className="form-select" id="mode" name="mode" defaultValue={formik.values.mode == null?-1:formik.values.mode._id} onChange={(e)=>setMode(e.target.value)}>
-                                            <option value="-1">Sélectionnez un moyen de paiement</option>
+                                        <select className="form-select" id="mode" name="mode" defaultValue={formik.values.mode === null?null:formik.values.mode._id} onChange={(e)=>setMode(e.target.value)}>
                                         {   
                                             allmodes.map((item, key) => {
                                                 return (

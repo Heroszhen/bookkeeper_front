@@ -20,7 +20,7 @@ export async function fetchGet(url, dispatch = null){
     }
 }
 
-export async function fetchPost(url,data, dispatch = null){
+export async function fetchPost(url, data, dispatch = null){
     let headers = {
         'X-Requested-With': 'XMLHttpRequest',
         'Content-type' : 'application/json'
