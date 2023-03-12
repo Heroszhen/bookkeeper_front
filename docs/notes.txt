@@ -1,0 +1,13 @@
+---test
+React Testing Course for Beginners – Code and Test 3 Apps
+https://www.youtube.com/watch?v=8vfQ6SWBZ-U
+
+sélecteurs
+https://juejin.cn/post/7037766958170767374
+
+fonction de detection
+https://juejin.cn/post/6912312960459210760
+
+https://www.youtube.com/watch?v=Vp_76zdHkV8
+npm test
+

@@ -1,0 +1,28 @@
+.wrap-list .wrap-table{
+    min-height: calc(100vh - 200px);
+}
+
+.completed-description{
+    display:none;
+}
+tr.active .wrap-description{
+    display:none;
+}
+tr.active  .completed-description{
+    display:block;
+}
+
+.paginationBttns {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+.paginationBttns>li {
+    margin-right: 10px;
+}
+
+.paginationBttns>li.paginationActive {
+    color: red;
+}

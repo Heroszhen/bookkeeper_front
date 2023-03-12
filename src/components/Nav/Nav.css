@@ -1,0 +1,17 @@
+#dropdownMenuButton1{
+    width:40px;
+    height:40px;
+    border-radius: 50%;
+    background-color: white;
+}
+img#photo-profil{
+    width:40px;
+    height:40px;
+    border-radius: 50%;
+}
+
+@media (min-width:768px) {
+    .dropdown-menu.show{
+        left:-100px;
+    }
+}

@@ -1,0 +1,12 @@
+#login{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login form{
+    width:40%;
+    background-color: white;
+    border-radius: 5px;
+    padding:10px 20px;
+}
