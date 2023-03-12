@@ -17,6 +17,11 @@ export const fetchEditAccount = createAsyncThunk('accounts/editAccount', async (
     }
 });
 
+export const fetchDeleteAccount = createAsyncThunk('accounts/DeleteAccount', async (id, dispatch)=>{
+    let response = await fetchGet(`accounts/account/${id}`,dispatch);
+    if(response["status"] === 1)return {id:id}
+});
+
 const {actions, reducer : accountsReducer} = createSlice({
     name : "accounts",
     initialState: [],
@@ -26,8 +31,17 @@ const {actions, reducer : accountsReducer} = createSlice({
             return payload;
         })
         .addCase(fetchEditAccount.fulfilled , (state, { payload }) => {
-            if(payload.action === 1)state.unshift(JSON.parse(payload.account));
-            console.log(payload)
+            if(payload.action === 1)return [payload.account, ...state];
+            else{
+                return state.map((item, index) => {
+                    if (item._id !== payload.account._id)return item;
+                    //https://redux.js.org/usage/structuring-reducers/immutable-update-patterns
+                    return payload.account;
+                })
+            }
+        })
+        .addCase(fetchDeleteAccount.fulfilled , (state, { payload }) => {
+            return state.filter(item => item._id !== payload.id);
         })
     }
 });

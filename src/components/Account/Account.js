@@ -1,7 +1,7 @@
 import './Account.css';
 import React, { useState, useEffect, useRef  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchGetAccountsByType, fetchEditAccount } from '../../store/accounts.slice';
+import { fetchGetAccountsByType, fetchEditAccount, fetchDeleteAccount } from '../../store/accounts.slice';
 import { fetchGet, clone } from '../../services/UtilService';
 import ReactPaginate from 'react-paginate';
 import AccountModel from '../../models/AccountModel' ;
@@ -31,7 +31,6 @@ export default function Account(props){
         enableReinitialize: true,
         onSubmit: async (values) => {
             if(Object.keys(formik.errors).length === 0){
-                console.log(values)
                 dispatch(fetchEditAccount(values, dispatch));
             }
         },
@@ -115,6 +114,12 @@ export default function Account(props){
         formik.setFieldValue("authors", tab);
     }
 
+    function deleteAccount(id){
+        if(window.confirm("Voulez-vous supprimer cet élément ?")){
+            dispatch(fetchDeleteAccount(id, dispatch));
+        }
+    }
+
     return (
         <>
             <div id="accounts">
@@ -178,7 +183,7 @@ export default function Account(props){
                                                     <td>{item.created}</td>
                                                     <td>
                                                         <button type='button' className="btn btn-info btn-sm text-white me-2 mb-1" onClick={(e)=>switchModal(e,1, key)}>Modifier</button>
-                                                        <button type='button' className="btn btn-danger btn-sm">Supprimer</button>
+                                                        <button type='button' className="btn btn-danger btn-sm" onClick={(e)=>deleteAccount(item._id)}>Supprimer</button>
                                                     </td>
                                                 </tr>
                                             );
